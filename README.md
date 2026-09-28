@@ -61,7 +61,12 @@ Representative structures used for visualization are also provided in VASP/VESTA
 
 Contains candidate flexible-host structures and corresponding isotope-dependent vibrational data.
 
-The current dataset contains several structural classes, including layered/chalcogenide hosts, oxide tunnel or slab structures, hydroxide-type local environments, and MXene-like structures.
+The current dataset contains several structural classes, including:
+
+- layered/chalcogenide hosts,
+- oxide tunnel or slab structures,
+- hydroxide-type local environments,
+- MXene-like structures.
 
 For selected systems, multiple Li sites are included to investigate how the **local coordination environment** modifies the isotope fractionation factor.
 
@@ -84,7 +89,7 @@ POSCAR
 OUTCAR
 ```
 
-The original VASP `POTCAR` files are **not distributed** in this repository. See [`VASP/POTCAR_README.md`](VASP/POTCAR_README.md) for details.
+The original VASP `POTCAR` files are **not distributed** in this public repository. The full pseudopotential metadata and reconstruction instructions are documented below.
 
 ---
 
@@ -195,7 +200,12 @@ The workflow includes:
 4. extracting Li-related bottleneck descriptors;
 5. writing material-level and site-level results to CSV/Excel files.
 
-The script contains optional manual overrides for oxidation states and site radii, which can be used when automatic chemical assignment fails for a specific structure.
+The script contains optional manual overrides for:
+
+- oxidation states,
+- site radii,
+
+which can be used when automatic chemical assignment fails for a specific structure.
 
 Important dependencies include:
 
@@ -224,81 +234,302 @@ The exact structures used in the calculations are provided in the corresponding 
 
 ---
 
-## VASP pseudopotentials
+# VASP pseudopotentials and POTCAR metadata
 
-VASP `POTCAR` files are intentionally excluded because the PAW potential files are distributed under the VASP license and should not be redistributed publicly.
+## Why the actual POTCAR files are not included
 
-For reproducibility, the VASP calculation directories use metadata/specification files where appropriate, and isotope masses are controlled through the corresponding calculation inputs.
+The actual VASP `POTCAR` files used in this project are **not included in this public repository**.
 
-PAW_PBE H   15Jun2001
-  PAW_PBE Li  17Jan2003
-  PAW_PBE C   08Apr2002
-  PAW_PBE N   08Apr2002
-  PAW_PBE O   08Apr2002
-  PAW_PBE F   08Apr2002
-  PAW_PBE Al  04Jan2001
-  PAW_PBE Si  05Jan2001
-  PAW_PBE P   06Sep2000
-  PAW_PBE S   06Sep2000
-  PAW_PBE Sc  04Feb2005
-  PAW_PBE Ti  08Apr2002
-  PAW_PBE V   08Apr2002
-  PAW_PBE Mn  06Sep2000
-  PAW_PBE Fe  06Sep2000
-  PAW_PBE Co  02Aug2007
-  PAW_PBE Ni  02Aug2007
-  PAW_PBE Ga  08Apr2002
-  PAW_PBE Ge  05Jan2001
-  PAW_PBE Se  06Sep2000
-  PAW_PBE Zr_sv  04Jan2005
-  PAW_PBE Nb_pv  08Apr2002
-  PAW_PBE Mo  08Apr2002
-  PAW_PBE Pd  04Jan2005
-  PAW_PBE In  08Apr2002
-  PAW_PBE Sn  08Apr2002
-  PAW_PBE Te  08Apr2002
-  PAW_PBE Ba_sv  06Sep2000
-  PAW_PBE La  06Sep2000
-  PAPAW_PBE Ce  23Dec2003
-  PAW_PBE Nd  23Dec2003
-  PAW_PBE Hf  20Jan2003
-  PAW_PBE Ta  17Jan2003
-  PAW_PBE W_sv  04Sep2015
+VASP pseudopotential files are distributed as part of the licensed VASP package. To avoid redistribution of licensed PAW data, this repository records only the metadata needed to identify and reconstruct the pseudopotentials used in the calculations.
 
-For the Li isotope phonon calculations:
+For reproducibility, the repository provides:
 
-- \(^{6}\mathrm{Li}\) calculations use the Li isotope mass specified in the corresponding `INCAR` where applicable;
-- \(^{7}\mathrm{Li}\) calculations use the corresponding reference/default Li mass unless otherwise specified.
+- the exact PAW dataset label;
+- the corresponding release date;
+- the element ordering through each `POSCAR`;
+- isotope-mass modifications through `INCAR`, where relevant;
+- the remaining VASP input and selected output files.
 
-Users with a valid VASP license should reconstruct the required `POTCAR` files locally.
+Users who wish to reproduce the calculations should obtain the corresponding PAW datasets through their own valid VASP license and reconstruct the required `POTCAR` files locally.
 
-See:
+---
+
+## PAW datasets used in this project
+
+The following PAW-PBE datasets and release dates were used across the structures included in this repository:
 
 ```text
-VASP/POTCAR_README.md
+PAW_PBE H       15Jun2001
+PAW_PBE Li      17Jan2003
+PAW_PBE C       08Apr2002
+PAW_PBE N       08Apr2002
+PAW_PBE O       08Apr2002
+PAW_PBE F       08Apr2002
+PAW_PBE Al      04Jan2001
+PAW_PBE Si      05Jan2001
+PAW_PBE P       06Sep2000
+PAW_PBE S       06Sep2000
+PAW_PBE Sc      04Feb2005
+PAW_PBE Ti      08Apr2002
+PAW_PBE V       08Apr2002
+PAW_PBE Mn      06Sep2000
+PAW_PBE Fe      06Sep2000
+PAW_PBE Co      02Aug2007
+PAW_PBE Ni      02Aug2007
+PAW_PBE Ga      08Apr2002
+PAW_PBE Ge      05Jan2001
+PAW_PBE Se      06Sep2000
+PAW_PBE Zr_sv   04Jan2005
+PAW_PBE Nb_pv   08Apr2002
+PAW_PBE Mo      08Apr2002
+PAW_PBE Pd      04Jan2005
+PAW_PBE In      08Apr2002
+PAW_PBE Sn      08Apr2002
+PAW_PBE Te      08Apr2002
+PAW_PBE Ba_sv   06Sep2000
+PAW_PBE La      06Sep2000
+PAW_PBE Ce      23Dec2003
+PAW_PBE Nd      23Dec2003
+PAW_PBE Hf      20Jan2003
+PAW_PBE Ta      17Jan2003
+PAW_PBE W_sv    04Sep2015
 ```
 
-for additional information.
+The pseudopotential label and release date should both be matched when reproducing the calculations.
+
+---
+
+## POTCAR metadata table
+
+| Element | PAW dataset | Release date |
+|---|---|---|
+| H | PAW_PBE H | 15Jun2001 |
+| Li | PAW_PBE Li | 17Jan2003 |
+| C | PAW_PBE C | 08Apr2002 |
+| N | PAW_PBE N | 08Apr2002 |
+| O | PAW_PBE O | 08Apr2002 |
+| F | PAW_PBE F | 08Apr2002 |
+| Al | PAW_PBE Al | 04Jan2001 |
+| Si | PAW_PBE Si | 05Jan2001 |
+| P | PAW_PBE P | 06Sep2000 |
+| S | PAW_PBE S | 06Sep2000 |
+| Sc | PAW_PBE Sc | 04Feb2005 |
+| Ti | PAW_PBE Ti | 08Apr2002 |
+| V | PAW_PBE V | 08Apr2002 |
+| Mn | PAW_PBE Mn | 06Sep2000 |
+| Fe | PAW_PBE Fe | 06Sep2000 |
+| Co | PAW_PBE Co | 02Aug2007 |
+| Ni | PAW_PBE Ni | 02Aug2007 |
+| Ga | PAW_PBE Ga | 08Apr2002 |
+| Ge | PAW_PBE Ge | 05Jan2001 |
+| Se | PAW_PBE Se | 06Sep2000 |
+| Zr | PAW_PBE Zr_sv | 04Jan2005 |
+| Nb | PAW_PBE Nb_pv | 08Apr2002 |
+| Mo | PAW_PBE Mo | 08Apr2002 |
+| Pd | PAW_PBE Pd | 04Jan2005 |
+| In | PAW_PBE In | 08Apr2002 |
+| Sn | PAW_PBE Sn | 08Apr2002 |
+| Te | PAW_PBE Te | 08Apr2002 |
+| Ba | PAW_PBE Ba_sv | 06Sep2000 |
+| La | PAW_PBE La | 06Sep2000 |
+| Ce | PAW_PBE Ce | 23Dec2003 |
+| Nd | PAW_PBE Nd | 23Dec2003 |
+| Hf | PAW_PBE Hf | 20Jan2003 |
+| Ta | PAW_PBE Ta | 17Jan2003 |
+| W | PAW_PBE W_sv | 04Sep2015 |
+
+
+---
+
+## Reconstructing POTCAR files locally
+
+The order of concatenated PAW datasets for an individual VASP calculation must follow the element order in the corresponding `POSCAR`.
+
+For example, if the `POSCAR` contains:
+
+```text
+Li Ti P O
+```
+
+then the locally reconstructed `POTCAR` should concatenate the corresponding PAW datasets in exactly the same order:
+
+```text
+PAW_PBE Li  17Jan2003
+PAW_PBE Ti  08Apr2002
+PAW_PBE P   06Sep2000
+PAW_PBE O   08Apr2002
+```
+
+Similarly, for a structure with:
+
+```text
+Li La Ti O
+```
+
+the required sequence is:
+
+```text
+PAW_PBE Li  17Jan2003
+PAW_PBE La  06Sep2000
+PAW_PBE Ti  08Apr2002
+PAW_PBE O   08Apr2002
+```
+
+The general reconstruction procedure is:
+
+```text
+POSCAR element order
+        ↓
+match each element to the PAW dataset listed above
+        ↓
+concatenate the corresponding licensed POTCAR components
+        ↓
+place the reconstructed POTCAR in the calculation directory
+```
+
+The reconstructed local `POTCAR` should **not** be committed back to the public repository.
+
+---
+
+## Li isotope treatment
+
+The \(^{6}\mathrm{Li}\) and \(^{7}\mathrm{Li}\) calculations use the same Li electronic PAW dataset:
+
+```text
+PAW_PBE Li  17Jan2003
+```
+
+The isotope effect is introduced through the **nuclear mass**, rather than through a different electronic pseudopotential.
+
+For \(^{6}\mathrm{Li}\) calculations, the Li atomic mass is explicitly changed in the corresponding `INCAR` using `POMASS` where applicable.
+
+For \(^{7}\mathrm{Li}\) calculations, the corresponding reference/default Li mass is used unless explicitly overwritten in the calculation directory.
+
+Therefore:
+
+```text
+Electronic PAW potential: unchanged
+Nuclear isotope mass:     changed
+```
+
+This is the intended setup for comparing isotope-dependent vibrational frequencies and calculating
+
+\[
+1000\ln\beta^{7/6}.
+\]
+
+---
+
+## Why `_sv` and `_pv` labels matter
+
+Some elements in this project use PAW datasets with explicit semicore treatment, including:
+
+```text
+Zr_sv
+Nb_pv
+Ba_sv
+W_sv
+```
+
+These labels are part of the pseudopotential definition and should not be replaced silently by the corresponding default potentials.
+
+For reproducibility, both the **dataset label** and the **release date** should be matched.
+
+For example:
+
+```text
+PAW_PBE Zr_sv  04Jan2005
+```
+
+should not automatically be replaced by a generic `Zr` PAW dataset.
+
+The same applies to:
+
+```text
+PAW_PBE Nb_pv  08Apr2002
+PAW_PBE Ba_sv  06Sep2000
+PAW_PBE W_sv   04Sep2015
+```
+
+---
+
+## Preventing accidental POTCAR uploads
+
+The repository `.gitignore` should contain rules that exclude actual POTCAR files:
+
+```gitignore
+POTCAR
+POTCAR.*
+**/POTCAR
+**/POTCAR.*
+```
+
+Before pushing new calculation directories to GitHub, it is recommended to verify that no actual POTCAR file is being tracked.
+
+On Linux/macOS:
+
+```bash
+git ls-files | grep POTCAR
+```
+
+On Windows PowerShell:
+
+```powershell
+git ls-files | Select-String "POTCAR"
+```
+
+A properly cleaned public repository should list only metadata-related files such as:
+
+```text
+POTCAR_README.md
+POTCAR.spec
+```
+
+and should not contain the actual licensed `POTCAR` content.
+
+---
+
+## Recommended POTCAR.spec format
+
+For individual calculation directories, an optional `POTCAR.spec` file can be used to document the required pseudopotential sequence without redistributing the pseudopotential itself.
+
+Example:
+
+```text
+# POTCAR specification
+# Order follows POSCAR
+
+PAW_PBE Li  17Jan2003
+PAW_PBE Ti  08Apr2002
+PAW_PBE P   06Sep2000
+PAW_PBE O   08Apr2002
+```
+
+This allows a licensed VASP user to reconstruct the exact `POTCAR` locally.
 
 ---
 
 ## Reproducibility notes
 
-When reproducing the calculations, please keep the following points consistent:
+When reproducing the calculations, the following settings should be kept consistent:
 
 - crystal structure;
+- element ordering;
 - exchange-correlation functional;
-- PAW potential choice;
+- PAW potential label;
+- PAW release date;
 - plane-wave cutoff;
 - k-point sampling;
-- electronic and ionic convergence criteria;
+- electronic convergence criteria;
+- ionic convergence criteria;
 - Hubbard \(U\), if used;
 - magnetic initialization, where relevant;
 - isotope mass;
 - vibrational calculation settings;
-- treatment of imaginary and near-zero-frequency modes.
+- treatment of imaginary modes;
+- treatment of near-zero-frequency acoustic modes.
 
-For isotope effects, the \(^{6}\mathrm{Li}\) and \(^{7}\mathrm{Li}\) calculations should differ only in the isotope mass unless a specific test explicitly requires otherwise.
+For isotope calculations, the \(^{6}\mathrm{Li}\) and \(^{7}\mathrm{Li}\) calculations should differ only in isotope mass unless a specific methodological test explicitly requires otherwise.
 
 ---
 
@@ -309,9 +540,9 @@ The repository is intended to provide the computational data and scripts needed 
 ```text
 Crystal structure
         ↓
-VASP vibrational calculations
+VASP geometry optimization / vibrational calculations
         ↓
-6Li / 7Li mode matching
+6Li / 7Li vibrational mode extraction and matching
         ↓
 1000 ln(beta7/6)
         ↓
@@ -347,3 +578,4 @@ Other third-party software, including CAVD and pymatgen, is subject to its own r
 ## Contact
 
 For questions regarding the calculations or data organization, please open an issue in this repository or contact the authors of the associated publication.
+
