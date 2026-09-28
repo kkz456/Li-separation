@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this dataset and code, please cite it as below."
+
+title: "Li Isotope Separation: Structures, Vibrational Data, and Analysis Workflows"
+
+version: 1.0
+date-released: 2026-09-28
+
+authors:
+  - family-names: Zhu
+    given-names: Zi-Fan
+
+  - family-names: Kong
+    given-names: Yuan
