@@ -22,38 +22,31 @@ Li-separation/
 ├── Rigid host/
 │   ├── 晶体结构/
 │   ├── 振动数据/
-│   │   ├── FREQ_MASS=6/
-│   │   └── FREQ_MASS=7/
 │   └── vesta文件/
 │
 ├── Flexible host/
 │   ├── structure/
 │   └── 晶体结构/
-│       ├── freq_mass=6/
-│       ├── freq_mass=7/
-│       └── structure/
 │
 ├── Li_H2O_4_8_12/
-│   ├── 结构/
-│   └── 振动信息/
-│       ├── freq=6/
-│       └── freq=7/
 │
-└── VASP/
-    ├── Rigid/
-    ├── Flexible/
-    ├── .gitignore
-    └── POTCAR_README.md
+├── VASP_example/
+│   ├── a_Li2La2Ti2O8/
+│   ├── b_Li1Ti1P1O5/
+│   ├── c_NiHO2_A/
+│   └── d_V2O5/
+│
+└── README.md
 ```
 
 ### `Rigid host/`
 
 Contains crystal structures and isotope-dependent vibrational data for the rigid-host screening set.
 
-The vibrational calculations are separated into:
+The vibrational calculations include paired data for:
 
-- `FREQ_MASS=6/`: calculations using the \(^{6}\mathrm{Li}\) isotope mass.
-- `FREQ_MASS=7/`: calculations using the \(^{7}\mathrm{Li}\) isotope mass.
+- \(^{6}\mathrm{Li}\)
+- \(^{7}\mathrm{Li}\)
 
 Representative structures used for visualization are also provided in VASP/VESTA formats.
 
@@ -61,35 +54,35 @@ Representative structures used for visualization are also provided in VASP/VESTA
 
 Contains candidate flexible-host structures and corresponding isotope-dependent vibrational data.
 
-The current dataset contains several structural classes, including:
+The dataset includes several structural classes, such as:
 
 - layered/chalcogenide hosts,
 - oxide tunnel or slab structures,
 - hydroxide-type local environments,
 - MXene-like structures.
 
-For selected systems, multiple Li sites are included to investigate how the **local coordination environment** modifies the isotope fractionation factor.
+For selected systems, multiple Li sites are included to investigate how the **local coordination environment** modifies isotope fractionation.
 
 ### `Li_H2O_4_8_12/`
 
 Contains structures and vibrational data for Li-containing water clusters with 4, 8, and 12 water molecules.
 
-These calculations are included as molecular/reference systems for comparison with solid-state hosts.
+These calculations provide molecular/reference systems for comparison with solid-state hosts.
 
-### `VASP/`
+### `VASP_example/`
 
-Contains representative VASP calculation directories, including geometry optimization and isotope-dependent vibrational calculations.
-
-Typical files include:
+Contains representative VASP calculation directories corresponding to selected systems discussed in the study:
 
 ```text
-INCAR
-KPOINTS
-POSCAR
-OUTCAR
+a_Li2La2Ti2O8/
+b_Li1Ti1P1O5/
+c_NiHO2_A/
+d_V2O5/
 ```
 
-The original VASP `POTCAR` files are **not distributed** in this public repository. The full pseudopotential metadata and reconstruction instructions are documented below.
+These examples provide representative calculation inputs and outputs for reproducing the workflow used in the study. Depending on the calculation directory, files may include geometry-optimization inputs/outputs and isotope-dependent vibrational calculations for \(^{6}\mathrm{Li}\) and \(^{7}\mathrm{Li}\).
+
+The original VASP `POTCAR` files are **not redistributed** in this public repository. Full pseudopotential metadata and reconstruction information are provided below.
 
 ---
 
@@ -115,11 +108,11 @@ The reported quantity used for screening is
 1000\ln\beta^{7/6}.
 \]
 
-For unit cells containing different numbers of Li atoms, the repository also uses a **per-Li normalized quantity** for cross-material comparison.
+For unit cells containing different numbers of Li atoms, a **per-Li normalized quantity** is also used for cross-material comparison.
 
 ### Treatment of vibrational modes
 
-The current implementation:
+The workflow:
 
 1. pairs the \(^{6}\mathrm{Li}\) and \(^{7}\mathrm{Li}\) vibrational modes using their eigenvectors;
 2. excludes modes identified as imaginary (`fi` or `f/i`);
@@ -200,12 +193,7 @@ The workflow includes:
 4. extracting Li-related bottleneck descriptors;
 5. writing material-level and site-level results to CSV/Excel files.
 
-The script contains optional manual overrides for:
-
-- oxidation states,
-- site radii,
-
-which can be used when automatic chemical assignment fails for a specific structure.
+The script contains optional manual overrides for oxidation states and site radii when automatic chemical assignment fails for a specific structure.
 
 Important dependencies include:
 
@@ -222,15 +210,16 @@ Because CAVD installation can be environment-dependent, users should reproduce t
 
 ## Representative systems
 
-The repository contains representative calculations for materials used to illustrate different regions of the screening space, including structures associated with:
+Representative VASP calculation examples are supplied for:
 
-- Li-containing titanate/oxide hosts,
-- LLTO-type structures,
-- LATP-related structures,
-- NiHO2 local Li environments,
-- V2O5-related flexible hosts.
+- `a_Li2La2Ti2O8`
+- `b_Li1Ti1P1O5`
+- `c_NiHO2_A`
+- `d_V2O5`
 
-The exact structures used in the calculations are provided in the corresponding structure directories.
+These examples span representative rigid-host and flexible/site-engineered systems used to illustrate the computational workflow.
+
+Additional crystal structures and vibrational data used in the broader screening are provided under `Rigid host/` and `Flexible host/`.
 
 ---
 
@@ -240,7 +229,7 @@ The exact structures used in the calculations are provided in the corresponding 
 
 The actual VASP `POTCAR` files used in this project are **not included in this public repository**.
 
-VASP pseudopotential files are distributed as part of the licensed VASP package. To avoid redistribution of licensed PAW data, this repository records only the metadata needed to identify and reconstruct the pseudopotentials used in the calculations.
+VASP pseudopotential files are distributed as part of the licensed VASP package. To avoid redistribution of licensed PAW data, this repository records the metadata needed to identify and reconstruct the pseudopotentials used in the calculations.
 
 For reproducibility, the repository provides:
 
@@ -248,7 +237,7 @@ For reproducibility, the repository provides:
 - the corresponding release date;
 - the element ordering through each `POSCAR`;
 - isotope-mass modifications through `INCAR`, where relevant;
-- the remaining VASP input and selected output files.
+- representative VASP input and output files.
 
 Users who wish to reproduce the calculations should obtain the corresponding PAW datasets through their own valid VASP license and reconstruct the required `POTCAR` files locally.
 
@@ -295,7 +284,7 @@ PAW_PBE Ta      17Jan2003
 PAW_PBE W_sv    04Sep2015
 ```
 
-The pseudopotential label and release date should both be matched when reproducing the calculations.
+Both the pseudopotential label and release date should be matched when reproducing the calculations.
 
 ---
 
@@ -338,7 +327,6 @@ The pseudopotential label and release date should both be matched when reproduci
 | Ta | PAW_PBE Ta | 17Jan2003 |
 | W | PAW_PBE W_sv | 04Sep2015 |
 
-
 ---
 
 ## Reconstructing POTCAR files locally
@@ -351,7 +339,7 @@ For example, if the `POSCAR` contains:
 Li Ti P O
 ```
 
-then the locally reconstructed `POTCAR` should concatenate the corresponding PAW datasets in exactly the same order:
+the locally reconstructed `POTCAR` should concatenate:
 
 ```text
 PAW_PBE Li  17Jan2003
@@ -360,7 +348,7 @@ PAW_PBE P   06Sep2000
 PAW_PBE O   08Apr2002
 ```
 
-Similarly, for a structure with:
+Similarly, for:
 
 ```text
 Li La Ti O
@@ -375,7 +363,7 @@ PAW_PBE Ti  08Apr2002
 PAW_PBE O   08Apr2002
 ```
 
-The general reconstruction procedure is:
+General procedure:
 
 ```text
 POSCAR element order
@@ -387,7 +375,7 @@ concatenate the corresponding licensed POTCAR components
 place the reconstructed POTCAR in the calculation directory
 ```
 
-The reconstructed local `POTCAR` should **not** be committed back to the public repository.
+The reconstructed local `POTCAR` should **not** be committed to the public repository.
 
 ---
 
@@ -422,7 +410,7 @@ This is the intended setup for comparing isotope-dependent vibrational frequenci
 
 ## Why `_sv` and `_pv` labels matter
 
-Some elements in this project use PAW datasets with explicit semicore treatment, including:
+Some elements in this project use PAW datasets with explicit semicore treatment:
 
 ```text
 Zr_sv
@@ -431,31 +419,15 @@ Ba_sv
 W_sv
 ```
 
-These labels are part of the pseudopotential definition and should not be replaced silently by the corresponding default potentials.
+These labels are part of the pseudopotential definition and should not be silently replaced by corresponding default potentials.
 
 For reproducibility, both the **dataset label** and the **release date** should be matched.
-
-For example:
-
-```text
-PAW_PBE Zr_sv  04Jan2005
-```
-
-should not automatically be replaced by a generic `Zr` PAW dataset.
-
-The same applies to:
-
-```text
-PAW_PBE Nb_pv  08Apr2002
-PAW_PBE Ba_sv  06Sep2000
-PAW_PBE W_sv   04Sep2015
-```
 
 ---
 
 ## Preventing accidental POTCAR uploads
 
-The repository `.gitignore` should contain rules that exclude actual POTCAR files:
+Before pushing new calculation directories to a public Git repository, actual POTCAR files should be excluded using rules such as:
 
 ```gitignore
 POTCAR
@@ -464,34 +436,27 @@ POTCAR.*
 **/POTCAR.*
 ```
 
-Before pushing new calculation directories to GitHub, it is recommended to verify that no actual POTCAR file is being tracked.
+Before pushing, users can check for tracked POTCAR-related files.
 
-On Linux/macOS:
+Linux/macOS:
 
 ```bash
 git ls-files | grep POTCAR
 ```
 
-On Windows PowerShell:
+Windows PowerShell:
 
 ```powershell
 git ls-files | Select-String "POTCAR"
 ```
 
-A properly cleaned public repository should list only metadata-related files such as:
-
-```text
-POTCAR_README.md
-POTCAR.spec
-```
-
-and should not contain the actual licensed `POTCAR` content.
+The public repository should contain pseudopotential metadata only, not licensed POTCAR content.
 
 ---
 
 ## Recommended POTCAR.spec format
 
-For individual calculation directories, an optional `POTCAR.spec` file can be used to document the required pseudopotential sequence without redistributing the pseudopotential itself.
+For individual calculation directories, an optional `POTCAR.spec` file can document the required pseudopotential sequence without redistributing the pseudopotential itself.
 
 Example:
 
@@ -504,8 +469,6 @@ PAW_PBE Ti  08Apr2002
 PAW_PBE P   06Sep2000
 PAW_PBE O   08Apr2002
 ```
-
-This allows a licensed VASP user to reconstruct the exact `POTCAR` locally.
 
 ---
 
@@ -533,9 +496,11 @@ For isotope calculations, the \(^{6}\mathrm{Li}\) and \(^{7}\mathrm{Li}\) calcul
 
 ---
 
-## Data usage
+## Data and software contents
 
-The repository is intended to provide the computational data and scripts needed to inspect and reproduce the main analysis pipeline:
+The repository provides machine-readable structural, vibrational, and representative VASP calculation data together with the analysis scripts used in the study.
+
+The main reproducibility workflow is:
 
 ```text
 Crystal structure
@@ -551,17 +516,17 @@ CAVD bottleneck calculation
 Combined thermodynamic–transport screening
 ```
 
-The raw and processed data are organized by host type to facilitate both reproduction of individual calculations and comparison across materials.
+The raw and processed data are organized by host type to facilitate reproduction of individual calculations and comparison across materials.
 
 ---
 
 ## Citation
 
-If you use this repository, please cite the associated publication.
+If you use this repository, please cite the associated publication:
 
-```text
-[Publication information will be added after acceptance/publication.]
-```
+**A Hierarchical Computational Framework for Discovering Lithium Isotope Separation Materials: From Rigid versus Flexible Host Classification to Site-Level Engineering**
+
+Journal information and DOI will be added after publication.
 
 ---
 
