@@ -1,0 +1,11 @@
+# VASP licensed PAW potential files
+POTCAR
+POTCAR.*
+**/POTCAR
+**/POTCAR.*
+
+# Common large/restart files that are often not needed in public repositories
+WAVECAR
+CHGCAR
+CHG
+vasprun.xml
