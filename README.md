@@ -230,6 +230,41 @@ VASP `POTCAR` files are intentionally excluded because the PAW potential files a
 
 For reproducibility, the VASP calculation directories use metadata/specification files where appropriate, and isotope masses are controlled through the corresponding calculation inputs.
 
+PAW_PBE H   15Jun2001
+  PAW_PBE Li  17Jan2003
+  PAW_PBE C   08Apr2002
+  PAW_PBE N   08Apr2002
+  PAW_PBE O   08Apr2002
+  PAW_PBE F   08Apr2002
+  PAW_PBE Al  04Jan2001
+  PAW_PBE Si  05Jan2001
+  PAW_PBE P   06Sep2000
+  PAW_PBE S   06Sep2000
+  PAW_PBE Sc  04Feb2005
+  PAW_PBE Ti  08Apr2002
+  PAW_PBE V   08Apr2002
+  PAW_PBE Mn  06Sep2000
+  PAW_PBE Fe  06Sep2000
+  PAW_PBE Co  02Aug2007
+  PAW_PBE Ni  02Aug2007
+  PAW_PBE Ga  08Apr2002
+  PAW_PBE Ge  05Jan2001
+  PAW_PBE Se  06Sep2000
+  PAW_PBE Zr_sv  04Jan2005
+  PAW_PBE Nb_pv  08Apr2002
+  PAW_PBE Mo  08Apr2002
+  PAW_PBE Pd  04Jan2005
+  PAW_PBE In  08Apr2002
+  PAW_PBE Sn  08Apr2002
+  PAW_PBE Te  08Apr2002
+  PAW_PBE Ba_sv  06Sep2000
+  PAW_PBE La  06Sep2000
+  PAPAW_PBE Ce  23Dec2003
+  PAW_PBE Nd  23Dec2003
+  PAW_PBE Hf  20Jan2003
+  PAW_PBE Ta  17Jan2003
+  PAW_PBE W_sv  04Sep2015
+
 For the Li isotope phonon calculations:
 
 - \(^{6}\mathrm{Li}\) calculations use the Li isotope mass specified in the corresponding `INCAR` where applicable;
